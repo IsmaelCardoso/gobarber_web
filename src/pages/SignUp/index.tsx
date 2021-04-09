@@ -4,6 +4,7 @@ import { Form } from '@unform/web';
 import { FormHandles } from '@unform/core';
 import * as Yup from 'yup';
 import getValidationErrors from '../../utils/getValidationsErrors';
+import api from "../../services/api"
 
 import logoImg from '../../assets/logo.svg';
 
@@ -28,6 +29,9 @@ const SignUp: React.FC = () => {
       });
 
       await schema.validate(data, { abortEarly: false });
+
+      await api.post('/users', data);
+
     } catch (err) {
       const errors = getValidationErrors(err);
 
